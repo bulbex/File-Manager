@@ -1,13 +1,11 @@
 import { writeFile} from "node:fs/promises"
-import { existsSync } from "node:fs"
-import { printCWD } from "../index.js"
+import { printCWD } from "../utils/printCWD.js"
 
 export async function addFile(path) {
-    if (existsSync(path)) {
-        console.log("File with this name already exists")
-        return
+    try {
+        await writeFile(path, "", {encoding: "utf8"})
+    } catch (error) {
+        console.error("Operation failed")
     }
-    await writeFile(path, "", {encoding: "utf8"})
-    .catch(error => { console.error(`Error: ${error.message}`) })
-    .then(() => {console.log(`Successfully added ${path}`); printCWD()})
+    printCWD()
 }
