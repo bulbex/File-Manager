@@ -53,7 +53,9 @@ export async function handleUserInput(line) {
         }
 
         const command = line.split(" ")[0]
-        const filePaths = line.slice(command.length).match(/[^ (\"|\')][\:*\w+ \/\.]+[^ (\"|\')]/g)
+        const filePaths = command.startsWith("cp") && line.split(" ").slice(1).length === 2 
+            ? line.split(" ").slice(1) 
+            : line.slice(command.length).match(/[^ (\"|\')][\:*\w+ \/\.]+[^ (\"|\')]/g)
         
         if (line.startsWith("hash ")) {
             await hashFile(filePaths[0])
