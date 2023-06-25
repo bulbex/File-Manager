@@ -2,7 +2,6 @@ import { readContent } from "./cat.js";
 import { addFile } from "./add.js";
 import { renameFile } from "./rename.js";
 import { copyFile } from "./copy.js";
-import { moveFile } from "./move.js";
 import { removeFile } from "./remove.js";
 
 export async function handleFileOperation(operation, paths) {
@@ -20,7 +19,7 @@ export async function handleFileOperation(operation, paths) {
             await copyFile(paths)
             break;
         case "mv":
-            await moveFile(paths)
+            await copyFile(paths, true)
             break;
         case "rm":
             await removeFile(paths[0])

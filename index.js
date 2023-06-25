@@ -5,14 +5,14 @@ import { homedir } from "node:os"
 import { printCWD } from "./utils/printCWD.js"
 
 async function fileManager() {
-    const rl = readline.createInterface({ input: process.stdin, output: process.stdout})
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 
     let username = process.argv.find(arg => arg.startsWith("--username"))?.split("=")[1] 
     || await rl.question("Please, provide your username: ")
 
     console.log(`Welcome to the File Manager, ${username}!`)
 
-    process.chdir(homedir())
+    // process.chdir(homedir())
 
     printCWD()
 

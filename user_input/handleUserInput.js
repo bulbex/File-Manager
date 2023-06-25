@@ -35,6 +35,7 @@ export async function handleUserInput(line) {
                                 ? 1 
                                 : a.name - b.name
                 }).map(file => Object.assign({ name: file.name, type: file.isDirectory() ? 'directory' : 'file' })))
+                printCWD()
             })
             return
         }
@@ -51,14 +52,14 @@ export async function handleUserInput(line) {
             return
         }
 
-        const filePaths = line.split(" ").slice(1)
+        const command = line.split(" ")[0]
+        const filePaths = line.slice(command.length).match(/[^ (\"|\')][\:*\w+ \/\.]+[^ (\"|\')]/g)
         
         if (line.startsWith("hash ")) {
             await hashFile(filePaths[0])
-            return 
+            return
         }
         
-        const command = line.split(" ")[0]
 
         if (line.startsWith("compress ") || line.startsWith("decompress ")) {
             handleCompDecomp(command, filePaths)
@@ -68,7 +69,7 @@ export async function handleUserInput(line) {
         await handleFileOperation(command, filePaths)
 
     } catch (error) {
-        console.error("Operation failed")
+        console.error(error)
         printCWD()
     }
 }
