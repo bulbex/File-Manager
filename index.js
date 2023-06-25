@@ -12,7 +12,7 @@ async function fileManager() {
 
     console.log(`Welcome to the File Manager, ${username}!`)
 
-    // process.chdir(homedir())
+    process.chdir(homedir())
 
     printCWD()
 
